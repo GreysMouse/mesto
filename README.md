@@ -1,5 +1,5 @@
 # Проект №4: __"Место"__
-_https://greysmouse.github.io/russian-travel/index.html_
+_https://greysmouse.github.io/mesto/index.html_
 
 
 ### О проекте
