@@ -1,0 +1,21 @@
+.page__content {
+  margin: 0 200px;
+}
+
+@media screen and (max-width: 1279px) {
+  .page__content {
+    margin: 0 100px;
+  }
+}
+
+@media screen and (max-width: 1083px) {
+  .page__content {
+    margin: 0 50px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .page__content {
+    margin: 0 19px;
+  }
+}
