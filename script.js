@@ -1,44 +1,42 @@
-const profile = document.querySelector('.profile');
 const popup = document.querySelector('.popup');
-const likeButtons = document.querySelectorAll('.card__button');
-
-const editButton = profile.querySelector('.profile__edit-button');
 const closeButton = popup.querySelector('.popup__close-icon');
-
 const form = popup.querySelector('.popup__container');
+const popupFieldName = popup.querySelector('.popup__field_content_name');
+const popupFieldDescription = popup.querySelector('.popup__field_content_description');
 
-editButton.onclick = () => {
-  const profileName = profile.querySelector('.profile__name');
-  const profileDescription = profile.querySelector('.profile__description');
-  const popupFields = popup.querySelectorAll('.popup__field');
+const profile = document.querySelector('.profile');
+const editButton = profile.querySelector('.profile__edit-button');
+const profileName = profile.querySelector('.profile__name');
+const profileDescription = profile.querySelector('.profile__description');
 
-  popupFields[0].value = profileName.textContent;
-  popupFields[1].value = profileDescription.textContent;
+const likeButtons = document.querySelectorAll('.card__like-button');
+
+function popupOpen() {
   popup.classList.add('popup_opened');
+  
+  popupFieldName.value = profileName.textContent;
+  popupFieldDescription.value = profileDescription.textContent;  
 }
 
-closeButton.onclick = () => {
+function popupClose() {
   popup.classList.remove('popup_opened');
 }
 
 function handleFormSubmit (evt) {
   evt.preventDefault();
-  
-  const profileName = profile.querySelector('.profile__name');
-  const profileDescription = profile.querySelector('.profile__description');
-  const popupFields = popup.querySelectorAll('.popup__field');
  
-  profileName.textContent = popupFields[0].value;
-  profileDescription.textContent = popupFields[1].value;
+  profileName.textContent = popupFieldName.value;
+  profileDescription.textContent = popupFieldDescription.value;
 
-  popup.classList.remove('popup_opened');
+  popupClose();
 }
 
+editButton.addEventListener('click', popupOpen);
+closeButton.addEventListener('click', popupClose);
 form.addEventListener('submit', handleFormSubmit);
 
-for(let i = 0; i < likeButtons.length; i++)
-{
+for(let i = 0; i < likeButtons.length; i++) {
   likeButtons[i].onclick = () => {
-    likeButtons[i].classList.toggle('card__button_checked');
+    likeButtons[i].classList.toggle('card__like-button_checked');
   }
 }

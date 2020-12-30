@@ -1,98 +1,100 @@
 <!DOCTYPE html>
-<html lang = "ru">
+<html lang="ru">
 <head>
-  <meta charset = "UTF-8">
-  <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel = "stylesheet" href = "./pages/index.css">
+  <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class = "page">
-  <div class = "page__container">
-    <header class = "header page__header">
-      <a class = "header__logo" href = "#" target = "_self"></a>
+<body class="page">
+  <div class="page__container">
+    <header class="header page__header">
+      <a class="header__logo" href="#" target="_self"></a>
     </header>
-    <main class = "content page__content">
-      <section class = "profile">
-        <img class = "profile__avatar" src = "./images/profile-avatar.png" alt = "Аватар">
-        <div class = "profile__info">
-          <h1 class = "profile__name">Жак-Ив Кусто</h1>
-          <div class = "profile__edit-button"></div>
-          <p class = "profile__description">Исследователь океана</p>
+    <main class="content page__content">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/profile-avatar.png" alt="Аватар">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+          <p class="profile__description">Исследователь океана</p>
         </div>
-        <div class = "profile__add-button"></div>
-        <div class = "popup">
-          <form class = "popup__container">
-            <div class = "popup__close-icon"></div>
-            <h2 class = "popup__header">Редактировать профиль</h2>
-            <input class = "popup__field" type = "text" placeholder = "Имя">
-            <input class = "popup__field" type = "text" placeholder = "О себе">
-            <input class = "popup__button" type = "submit" value = "Сохранить">
-          </form>
-        </div>
+        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
-      <section class = "cards">
-        <ul class = "cards__container">
+      <section class="cards">
+        <ul class="cards__container">
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-karachaevo-cherkessia.jpg" alt = "Горы Черкессии">              
-              <div class = card__content>
-                <h2 class = "card__title">Карачаево-Черкессия</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-karachaevo-cherkessia.png" alt="Горы Черкессии">              
+              <div class=card__content>
+                <h2 class="card__title">Карачаево-Черкессия</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-olkhon.jpg" alt = "Остров Ольхон">              
-              <div class = card__content>
-                <h2 class = "card__title">Остров Ольхон</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-olkhon.png" alt="Остров Ольхон">              
+              <div class=card__content>
+                <h2 class="card__title">Остров Ольхон</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-elbrus.png" alt = "Вершина Эльбруса">              
-              <div class = card__content>
-                <h2 class = "card__title">Эльбрус</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-elbrus.png" alt="Вершина Эльбруса">              
+              <div class=card__content>
+                <h2 class="card__title">Эльбрус</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-dombay.png" alt = "Горы Домбая">              
-              <div class = card__content>
-                <h2 class = "card__title">Домбай</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-dombay.png" alt="Горы Домбая">              
+              <div class=card__content>
+                <h2 class="card__title">Домбай</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-komi-republic.jpg" alt = "Лесная тропа">              
-              <div class = card__content>
-                <h2 class = "card__title">Республика Коми</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-komi-republic.png" alt="Лесная тропа">              
+              <div class=card__content>
+                <h2 class="card__title">Республика Коми</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
           <li>
-            <div class = "card">
-              <img class = "card__image" src = "./images/card-tambov.jpg" alt = "Дорога">              
-              <div class = card__content>
-                <h2 class = "card__title">Тамбов</h2>
-                <div class = "card__button"></div>
+            <div class="card">
+              <img class="card__image" src="./images/card-tambov.png" alt="Дорога">              
+              <div class=card__content>
+                <h2 class="card__title">Тамбов</h2>
+                <button class="card__like-button" type="button" aria-label="Нравится"></button>
               </div>
             </div>
           </li>
         </ul>
       </section>
     </main>
-    <footer class = "footer page__footer">
-      <p class = "footer__copyright">© 2020 Mesto Russia</p>
+    <footer class="footer page__footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup">      
+      <div class="popup__container">
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <form>
+          <input class="popup__field popup__field_content_name" type="text" placeholder="Имя">
+          <input class="popup__field popup__field_content_description" type="text" placeholder="О себе">
+          <button class="popup__button" type="submit">Сохранить</button>
+        </form>   
+        <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
   </div>
-  <script src = "./script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>

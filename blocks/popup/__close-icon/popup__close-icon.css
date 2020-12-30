@@ -4,10 +4,10 @@
   right: -48px;
   width: 56px;
   height: 56px;
-  background-image: url(../../../images/popup-close-icon.svg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: url(../../../images/popup-close-icon.svg) center/cover no-repeat;
   transition: opacity 0.3s;
   transition: transform 0.5s;
 }
