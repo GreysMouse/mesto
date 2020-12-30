@@ -1,6 +1,6 @@
 .popup__field {
   margin-top: 20px;
-  padding: 10px 5px 10px;
+  padding: 10px 5px;
   width: 100%;
   border: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -11,7 +11,7 @@
   color: #000;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 475px) {
   .popup__field {
     font-size: 14px;
   }

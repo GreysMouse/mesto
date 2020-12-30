@@ -18,10 +18,16 @@
   transform: rotate(45deg);
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 580px) {
+  .popup__close-icon {
+    top: -70px;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 475px) {
   .popup__close-icon {
     top: -50px;
-    right: 0;
     width: 36px;
     height: 36px;
   }

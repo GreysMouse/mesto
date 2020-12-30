@@ -1,6 +1,6 @@
 const popup = document.querySelector('.popup');
 const closeButton = popup.querySelector('.popup__close-icon');
-const form = popup.querySelector('.popup__container');
+const form = popup.querySelector('.popup__form');
 const popupFieldName = popup.querySelector('.popup__field_content_name');
 const popupFieldDescription = popup.querySelector('.popup__field_content_description');
 
@@ -11,11 +11,11 @@ const profileDescription = profile.querySelector('.profile__description');
 
 const likeButtons = document.querySelectorAll('.card__like-button');
 
-function popupOpen() {
-  popup.classList.add('popup_opened');
-  
+function popupOpen() {  
   popupFieldName.value = profileName.textContent;
-  popupFieldDescription.value = profileDescription.textContent;  
+  popupFieldDescription.value = profileDescription.textContent;
+
+  popup.classList.add('popup_opened');
 }
 
 function popupClose() {
