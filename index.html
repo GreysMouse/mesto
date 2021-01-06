@@ -21,80 +21,46 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
-      <section class="cards">
-        <ul class="cards__container">
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Архыз">              
-              <div class=card__content>
-                <h2 class="card__title">Архыз</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg" alt="Челябинская область">              
-              <div class=card__content>
-                <h2 class="card__title">Челябинская область</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg" alt="Иваново">              
-              <div class=card__content>
-                <h2 class="card__title">Иваново</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="Камчатка">              
-              <div class=card__content>
-                <h2 class="card__title">Камчатка</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt="Холмогорский район">              
-              <div class=card__content>
-                <h2 class="card__title">Холмогорский район</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Байкал">              
-              <div class=card__content>
-                <h2 class="card__title">Байкал</h2>
-                <button class="card__like-button" type="button" aria-label="Нравится"></button>
-              </div>
-            </div>
-          </li>
-        </ul>
+      <section class="cards" aria-label="Карточки мест">
+        <ul class="cards__container"></ul>
       </section>
     </main>
     <footer class="footer page__footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">      
-      <div class="popup__container">
-        <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__form">
-          <input class="popup__field popup__field_content_name" type="text">
-          <input class="popup__field popup__field_content_description" type="text">
-          <button class="popup__button" type="submit">Сохранить</button>
-        </form>   
-        <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+    <div class="form-popup" hidden="true"> <!-- второй атрибут нужен для скрытия формы при загрузке страницы -->
+      <div class="form-popup__container">
+        <h2 class="form-popup__header">Заголовок формы</h2>
+        <form class="form-popup__form">
+          <input class="form-popup__field form-popup__field_content_name" type="text">
+          <input class="form-popup__field form-popup__field_content_description" type="text">
+          <button class="form-popup__button" type="submit">Отправить</button>
+        </form>
+        <button class="form-popup__close-button" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
+    <div class="card-popup" hidden="true"> <!-- иначе иногда при загрузке форма проявляется на некоторое время -->
+      <div class="card-popup__container">
+        <figure class="card-popup__figure">
+          <img class="card-popup__image" src="./images/popup-image-empty.png" alt="Нет изображения">
+          <figcaption class="card-popup__caption">Заголовок изображения</figcaption>
+        </figure>
+        <button class="card-popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
     </div>
   </div>
+  <template id="card">
+    <li>
+      <div class="card">
+        <img class="card__image">
+        <div class=card__content>
+          <h2 class="card__title"></h2>
+          <button class="card__like-button" type="button" aria-label="Нравится"></button>
+        </div>
+        <button class="card__delete-button" type="button" aria-label="Удалить"></button>
+      </div>
+    </li>
+  </template>
   <script src="./script.js"></script>
 </body>
 </html>

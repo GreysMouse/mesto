@@ -1,0 +1,34 @@
+.form-popup__close-button {
+  position: absolute;
+  top: -48px;
+  right: -48px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: url(../../../images/popup-close-icon.svg) center/cover no-repeat;
+  transition: opacity 0.3s;
+  transition: transform 0.5s;
+}
+
+.form-popup__close-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+  transform: rotate(45deg);
+}
+
+@media screen and (max-width: 580px) {
+  .form-popup__close-button {
+    top: -70px;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .form-popup__close-button {
+    top: -50px;
+    width: 36px;
+    height: 36px;
+  }
+}
