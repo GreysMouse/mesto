@@ -42,7 +42,7 @@
     <div class="card-popup" hidden="true"> <!-- иначе иногда при загрузке форма проявляется на некоторое время -->
       <div class="card-popup__container">
         <figure class="card-popup__figure">
-          <img class="card-popup__image" src="./images/popup-image-empty.png" alt="Нет изображения">
+          <img class="card-popup__image" src="./images/image-empty.png" alt="Нет изображения">
           <figcaption class="card-popup__caption">Заголовок изображения</figcaption>
         </figure>
         <button class="card-popup__close-button" type="button" aria-label="Закрыть"></button>
@@ -52,9 +52,9 @@
   <template id="card">
     <li>
       <div class="card">
-        <img class="card__image">
+        <img class="card__image" src="./images/image-empty.png" alt="Нет изображения">
         <div class=card__content>
-          <h2 class="card__title"></h2>
+          <h2 class="card__title">Заголовок карточки</h2>
           <button class="card__like-button" type="button" aria-label="Нравится"></button>
         </div>
         <button class="card__delete-button" type="button" aria-label="Удалить"></button>
