@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-16">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
@@ -29,23 +29,27 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
     <div class="popup popup_mode_edit" hidden="true">
-      <div class="popup__form-container">
-        <h2 class="popup__form-header">Редактировать профиль</h2>
-        <form class="popup__form">
-          <input class="popup__form-field popup__form-field_content_name" type="text" placeholder="Имя">
-          <input class="popup__form-field popup__form-field_content_description" type="text" placeholder="О себе">
-          <button class="popup__form-button" type="submit">Сохранить</button>
+      <div class="popup__container">
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <form class="popup__form" novalidate>
+          <input class="popup__input popup__input_content_name" id="input-name" type="text" placeholder="Имя" minlength="2" maxlength="40" autocomplete="off" required>
+          <span class="popup__input-error" id="input-name-error"></span>
+          <input class="popup__input popup__input_content_description" id="input-description" type="text" placeholder="О себе" minlength="2" maxlength="200" autocomplete="off" required>
+          <span class="popup__input-error" id="input-description-error"></span>
+          <button class="popup__button" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
     </div>
     <div class="popup popup_mode_add" hidden="true">
-      <div class="popup__form-container">
-        <h2 class="popup__form-header">Новое место</h2>
-        <form class="popup__form">
-          <input class="popup__form-field popup__form-field_content_title" type="text" placeholder="Название">
-          <input class="popup__form-field popup__form-field_content_link" type="text" placeholder="Ссылка на картинку">
-          <button class="popup__form-button" type="submit">Создать</button>
+      <div class="popup__container">
+        <h2 class="popup__header">Новое место</h2>
+        <form class="popup__form" novalidate>
+          <input class="popup__input popup__input_content_title" id="input-title" type="text" placeholder="Название" minlength="2" maxlength="30" autocomplete="off" required>
+          <span class="popup__input-error" id="input-title-error"></span>
+          <input class="popup__input popup__input_content_link" id="input-link" type="url" placeholder="Ссылка на картинку" autocomplete="off" required>
+          <span class="popup__input-error" id="input-link-error"></span>
+          <button class="popup__button" type="submit">Создать</button>
         </form>
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
@@ -72,6 +76,7 @@
       </div>
     </li>
   </template>
+  <script src="./validate.js"></script> 
   <script src="./script.js"></script>
 </body>
 </html>
