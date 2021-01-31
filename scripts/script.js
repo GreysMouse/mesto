@@ -42,7 +42,7 @@ const popupCardImage = document.querySelector('.popup_mode_image');
 const formEdit = popupProfileEdit.querySelector('.popup__form');
 const formAdd = popupCardAdd.querySelector('.popup__form');
 
-const name = popupProfileEdit.querySelector('.popup__input_content_name');
+const username = popupProfileEdit.querySelector('.popup__input_content_name');
 const description = popupProfileEdit.querySelector('.popup__input_content_description');
 
 const image = popupCardImage.querySelector('.popup__place-image');
@@ -99,16 +99,22 @@ function deleteCard(evt) {
   evt.target.closest('li').remove();
 }
 
+function closeByEscape(evt) {
+  if(evt.key === 'Escape') closePopup(document.querySelector('.popup_opened'));
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', closeByEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', closeByEscape);
 }
 
 function openPopupProfileEdit() {
-  name.value = profileName.textContent;
+  username.value = profileName.textContent;
   description.value = profileDescription.textContent;
 
   editFormInputs.forEach(function(input) {
@@ -154,8 +160,8 @@ function openPopupCardImage(title, link) {
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
   
-  if(name.value !== '' && description.value !== '') {
-    profileName.textContent = name.value;
+  if(username.value !== '' && description.value !== '') {
+    profileName.textContent = username.value;
     profileDescription.textContent = description.value;
   }
   closePopup(popupProfileEdit);
@@ -181,13 +187,5 @@ popups.forEach(function(popup) {
     if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
       closePopup(evt.currentTarget);
     }    
-  });
-});
-
-document.addEventListener('keyup', function(evt) {
-  popups.forEach(function(popup) {
-    if(popup.classList.contains('popup_opened') && evt.key === 'Escape') {
-      closePopup(popup);
-    }
   });
 });
