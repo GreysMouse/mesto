@@ -19,16 +19,14 @@ class Card {
 
   _setPopup() {
     const popup = document.querySelector('.popup_mode_image');
-    
-    popup.querySelector('.popup__place-image').src = this._link;
-    popup.querySelector('.popup__place-image').alt = this._name;
-    popup.querySelector('.popup__place-caption').textContent = this._name;
+    const image = popup.querySelector('.popup__place-image');
+    const caption = popup.querySelector('.popup__place-caption');
+
+    image.src = this._link;
+    image.alt = this._name;
+    caption.textContent = this._name;
 
     return popup;
-  }
-
-  _openPopup() {
-    this._setPopup().classList.add('popup_opened');
   }
 
   _setEventListeners(openFunc) {
@@ -53,9 +51,12 @@ class Card {
   createElement(openFunc) {
     this._element = this._getTemplate();
 
-    this._element.querySelector('.card__title').textContent = this._name;
-    this._element.querySelector('.card__image').src = this._link;
-    this._element.querySelector('.card__image').alt = this._name;
+    const title = this._element.querySelector('.card__title');
+    const image = this._element.querySelector('.card__image');
+
+    title.textContent = this._name;
+    image.src = this._link;
+    image.alt = this._name;
   
     this._setEventListeners(openFunc);
 

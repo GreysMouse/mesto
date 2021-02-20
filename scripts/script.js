@@ -32,16 +32,6 @@ const initialCards = [
   }
 ];
 
-initialCards.forEach(function(card) {
-  const cardPrototype = new Card({
-    name: card.name,
-    link: card.link
-  }, '#card');
-
-  const cardElement = cardPrototype.createElement(openPopup);
-  addCard(cardElement);
-});
-
 // -------------------- Profile Section -------------------- //
 
 const profile = document.querySelector('.profile');
@@ -76,9 +66,6 @@ const formAddPrototype = new FormValidator({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_visible'
 }, formAdd);
-
-formEditPrototype.enableValidation();
-formAddPrototype.enableValidation();
 
 const editFormInputs = formEdit.querySelectorAll('.popup__input');
 const addFormInputs = formAdd.querySelectorAll('.popup__input');
@@ -134,8 +121,7 @@ function openPopupProfileEdit() {
 }
 
 function openPopupCardAdd() {
-  title.value = '';
-  link.value = '';
+  formAdd.reset();
 
   addFormInputs.forEach(function(input) {
     input.classList.remove('popup__input_type_error');
@@ -153,26 +139,24 @@ function openPopupCardAdd() {
 
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
-  
-  if(username.value !== '' && description.value !== '') {
-    profileName.textContent = username.value;
-    profileDescription.textContent = description.value;
-  }
+
+  profileName.textContent = username.value;
+  profileDescription.textContent = description.value;
+
   closePopup(popupProfileEdit);
 }
 
 function handleFormAddSubmit(evt) {
   evt.preventDefault();
 
-  if(title.value !== '' && link.value !== '') {
-    const cardPrototype = new Card({
-      name: title.value,
-      link: link.value      
-    }, '#card');
+  const cardPrototype = new Card({
+    name: title.value,
+    link: link.value      
+  }, '#card');
 
-    const cardElement = cardPrototype.createElement(openPopup);    
-    addCard(cardElement);
-  }
+  const cardElement = cardPrototype.createElement(openPopup);    
+  addCard(cardElement);
+  
   closePopup(popupCardAdd);
 }
 
@@ -191,3 +175,20 @@ popups.forEach(function(popup) {
     }    
   });
 });
+
+// -------------------- Enable initial cards -------------------- //
+
+initialCards.forEach(function(card) {
+  const cardPrototype = new Card({
+    name: card.name,
+    link: card.link
+  }, '#card');
+
+  const cardElement = cardPrototype.createElement(openPopup);
+  addCard(cardElement);
+});
+
+// -------------------- Enable forms validation -------------------- //
+
+formEditPrototype.enableValidation();
+formAddPrototype.enableValidation();
