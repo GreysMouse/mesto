@@ -32,7 +32,7 @@ class FormValidator {
     }
   }
 
-  _hideInputError(inputElement, errorTextElement) {    
+  _hideInputError(inputElement, errorTextElement) {
     inputElement.classList.remove(this._inputErrorClass);
     errorTextElement.classList.remove(this._errorClass);
     errorTextElement.textContent = '';

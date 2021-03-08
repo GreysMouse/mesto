@@ -1,8 +1,9 @@
 class Card {
-  constructor(data, selector) {
+  constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -17,19 +18,7 @@ class Card {
     element.remove();
   }
 
-  _setPopup() {
-    const popup = document.querySelector('.popup_mode_image');
-    const image = popup.querySelector('.popup__place-image');
-    const caption = popup.querySelector('.popup__place-caption');
-
-    image.src = this._link;
-    image.alt = this._name;
-    caption.textContent = this._name;
-
-    return popup;
-  }
-
-  _setEventListeners(openFunc) {
+  _setEventListeners() {
     const likeButton = this._element.querySelector('.card__like-button');
     const deleteButton = this._element.querySelector('.card__delete-button');
     const image = this._element.querySelector('.card__image');
@@ -43,12 +32,11 @@ class Card {
     });
 
     image.addEventListener('click', () => {
-      const popup = this._setPopup();
-      openFunc(popup);
+      this._handleCardClick(this._name, this._link);
     });
   }
 
-  createElement(openFunc) {
+  createElement() {
     this._element = this._getTemplate();
 
     const title = this._element.querySelector('.card__title');
@@ -58,7 +46,7 @@ class Card {
     image.src = this._link;
     image.alt = this._name;
   
-    this._setEventListeners(openFunc);
+    this._setEventListeners();
 
     return this._element;
   }

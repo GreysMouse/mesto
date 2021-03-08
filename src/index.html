@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 <body class="page">
   <div class="page__container">
@@ -32,10 +32,10 @@
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
         <form class="popup__form" novalidate>
-          <input class="popup__input popup__input_content_name" id="input-name" type="text" placeholder="Имя" minlength="2" maxlength="40" autocomplete="off" required>
-          <span class="popup__input-error" id="input-name-error"></span>
-          <input class="popup__input popup__input_content_description" id="input-description" type="text" placeholder="О себе" minlength="2" maxlength="200" autocomplete="off" required>
-          <span class="popup__input-error" id="input-description-error"></span>
+          <input class="popup__input popup__input_content_name" id="name" type="text" placeholder="Имя" minlength="2" maxlength="40" autocomplete="off" required>
+          <span class="popup__input-error" id="name-error"></span>
+          <input class="popup__input popup__input_content_description" id="description" type="text" placeholder="О себе" minlength="2" maxlength="200" autocomplete="off" required>
+          <span class="popup__input-error" id="description-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
@@ -45,10 +45,10 @@
       <div class="popup__container">
         <h2 class="popup__header">Новое место</h2>
         <form class="popup__form" novalidate>
-          <input class="popup__input popup__input_content_title" id="input-title" type="text" placeholder="Название" minlength="2" maxlength="30" autocomplete="off" required>
-          <span class="popup__input-error" id="input-title-error"></span>
-          <input class="popup__input popup__input_content_link" id="input-link" type="url" placeholder="Ссылка на картинку" autocomplete="off" required>
-          <span class="popup__input-error" id="input-link-error"></span>
+          <input class="popup__input popup__input_content_title" id="title" type="text" placeholder="Название" minlength="2" maxlength="30" autocomplete="off" required>
+          <span class="popup__input-error" id="title-error"></span>
+          <input class="popup__input popup__input_content_link" id="link" type="url" placeholder="Ссылка на картинку" autocomplete="off" required>
+          <span class="popup__input-error" id="link-error"></span>
           <button class="popup__button" type="submit">Создать</button>
         </form>
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
@@ -76,6 +76,6 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./scripts/script.js"></script>
+  <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 </html>
