@@ -38,55 +38,22 @@ const formAddPrototype = new FormValidator({
   errorClass: 'popup__input-error_visible'
 }, formAdd);
 
-const editErrorMessages = formEdit.querySelectorAll('.popup__input-error');
-const addErrorMessages = formAdd.querySelectorAll('.popup__input-error');
-
-const formEditSubmitButton = formEdit.querySelector('.popup__button');
-const formAddSubmitButton = formAdd.querySelector('.popup__button');
-
 // -------------------- Popups -------------------- //
 
 const popupProfileEdit = new PopupWithForm('.popup_mode_edit', (inputValues) => {
   userInfo.setUserInfo(inputValues.name, inputValues.description);
   popupProfileEdit.close();
 }, (inputList) => {
-  inputList.forEach(input => {
-    input.value = userInfo.getUserInfo()[input.id];
-    input.classList.remove('popup__input_type_error');
-  });
+  const userData = userInfo.getUserInfo();
 
-  editErrorMessages.forEach(message => {
-    message.classList.remove('popup__input-error_visible');
-  });
-
-  formEditSubmitButton.classList.remove('popup__button_disabled');
-  formEditSubmitButton.removeAttribute('disabled');
+  inputList.forEach(input => input.value = userData[input.id]);
+  formEditPrototype.resetValidation();
 });
 
 const popupCardAdd = new PopupWithForm('.popup_mode_add', (inputValues) => {
-  const cardPrototype = new Card({
-    name: inputValues.title,
-    link: inputValues.link
-  }, '#card', popupCardImage.open);
-
-  const cardElement = cardPrototype.createElement();
-  cardsContainer.addItem(cardElement);
-
+  cardsContainer.addItem(createCard(inputValues.title, inputValues.link));
   popupCardAdd.close();
-}, (inputList) => {
-  inputList.forEach(input => {
-    input.classList.remove('popup__input_type_error');
-  });
-
-  addErrorMessages.forEach(message => {
-    message.classList.remove('popup__input-error_visible');
-  });
-
-  formAddSubmitButton.classList.add('popup__button_disabled');
-  formAddSubmitButton.setAttribute('disabled', 'disabled');
-
-  formAdd.reset();
-});
+}, () => formAddPrototype.resetValidation());
 
 const popupCardImage = new PopupWithImage('.popup_mode_image');
 
@@ -121,16 +88,19 @@ const initialCards = [
 
 const cardsContainer = new Section({
   items: initialCards,
-  renderer: (card) => {
-    const cardPrototype = new Card({
-      name: card.name,
-      link: card.link
-    }, '#card', popupCardImage.open);
-  
-    const cardElement = cardPrototype.createElement();
-    cardsContainer.addItem(cardElement);
-  }
+  renderer: (card) => cardsContainer.addItem(createCard(card.name, card.link))
 }, '.cards__container');
+
+// -------------------- Functions -------------------- //
+
+function createCard(name, link) {
+  const cardPrototype = new Card({
+    name: name,
+    link: link
+  }, '#card', popupCardImage.open);
+
+  return cardPrototype.createElement();
+}
 
 // -------------------- Enable Event Listeners -------------------- //
 

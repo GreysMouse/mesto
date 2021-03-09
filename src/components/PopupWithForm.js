@@ -29,6 +29,11 @@ class PopupWithForm extends Popup {
     this._handlePopupFields(this._inputList);
     super.open();
   }
+
+  close() {
+    this._form.reset(); //Теперь при закрытии формы (например на Esc) и быстром нажатии на Submit обнуляются все поля и текст тоже. Прошлое решение было лучше.
+    super.close();    
+  }
 }
 
 export {PopupWithForm};
