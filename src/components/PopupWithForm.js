@@ -10,7 +10,7 @@ class PopupWithForm extends Popup {
     this._inputList = this._popupElement.querySelectorAll('.popup__input');
   }
 
-  _getInputValues() {    
+  _getInputValues() {
     this._formValues = {};
     this._inputList.forEach(input => this._formValues[input.id] = input.value);
     
@@ -19,7 +19,7 @@ class PopupWithForm extends Popup {
 
   setEventListeners() {
     this._form.addEventListener('submit', (evt) => {
-      evt.preventDefault();      
+      evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
     super.setEventListeners();
@@ -31,8 +31,8 @@ class PopupWithForm extends Popup {
   }
 
   close() {
-    this._form.reset(); //Теперь при закрытии формы (например на клавишу Esc) и быстром нажатии на Submit обнуляются все поля и текст тоже. Прошлое решение было лучше.
-    super.close();    
+    this._form.reset();
+    super.close();
   }
 }
 

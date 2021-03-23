@@ -13,11 +13,13 @@
     </header>
     <main class="content page__content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/profile-avatar.png" alt="Аватар">
+        <div class="profile__overlay">
+          <img class="profile__avatar" src="./images/image-empty.png" alt="Аватар">
+        </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name">Имя</h1>
           <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
-          <p class="profile__description">Исследователь океана</p>
+          <p class="profile__description">О себе</p>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
@@ -63,6 +65,24 @@
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
     </div>
+    <div class="popup popup_mode_confirm" hidden="true">
+      <div class="popup__container">
+        <h2 class="popup__header">Вы уверены?</h2>
+        <button class="popup__button popup__button_type_comfirm" type="submit">Да</button>
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
+    <div class="popup popup_mode_avatar" hidden="true">
+      <div class="popup__container">
+        <h2 class="popup__header">Обновить аватар</h2>
+        <form class="popup__form" novalidate>
+          <input class="popup__input popup__input_content_avatar" id="avatar" type="url" placeholder="Ссылка на аватар" autocomplete="off" required>
+          <span class="popup__input-error" id="avatar-error"></span>
+          <button class="popup__button" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
   </div>
   <template id="card">
     <li>
@@ -70,9 +90,12 @@
         <img class="card__image" src="./images/image-empty.png" alt="Нет изображения">
         <div class=card__content>
           <h2 class="card__title">Заголовок карточки</h2>
-          <button class="card__like-button" type="button" aria-label="Нравится"></button>
+          <div>
+            <button class="card__like-button" type="button" aria-label="Нравится"></button>
+            <p class="card__like-counter">0</p>
+          </div>
         </div>
-        <button class="card__delete-button" type="button" aria-label="Удалить"></button>
+        <button class="card__delete-button card__delete-button_hidden" type="button" aria-label="Удалить"></button>
       </div>
     </li>
   </template>
