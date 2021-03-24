@@ -1,20 +1,29 @@
 import { Popup } from "./Popup";
 
 class PopupWithConfirm extends Popup{
-  constructor(popupSelector, handleCardDelete) {
+  constructor(popupSelector, handleDeleteElement) {
     super(popupSelector);
 
-    this._handleCardDelete = handleCardDelete;
+    this._elementId = undefined;
+    this._deleteElementFunc = undefined;
+
     this._submitButton = this._popupElement.querySelector('.popup__button');
+    this._handleDeleteElement = handleDeleteElement;
   }
 
-  open(cardId, deleteMethod) {
-    this._submitButton.addEventListener('click', () => {
-      this._handleCardDelete(cardId);
-      deleteMethod();
-      this.close();
-    });
+  open(elementId, deleteElementFunc) {
+    this._elementId = elementId;
+    this._deleteElementFunc = deleteElementFunc;
+
     super.open();
+  }
+
+  setEventListeners() {
+    this._submitButton.addEventListener('click', () => {
+      this._handleDeleteElement(this._elementId, this._deleteElementFunc);
+    });
+
+    super.setEventListeners();
   }
 }
 

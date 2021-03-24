@@ -81,9 +81,6 @@ class Api {
         authorization: this._token,
         'content-type': 'application/json'
       }
-    }).then(res => {
-      if(res.ok) return console.log('Карточка успешно удалена!');
-      return console.log(`Ошибка: ${res.status}. Не удалось удалить карточку с сервера.`);
     });
   }
 

@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, selector, handleCardClick, handleOpenPopup, handleLikeClick) {
+  constructor(data, selector, handleCardClick, handlePopupOpen, handleLikeClick) {
     this._id = data.id;
     this._name = data.name;
     this._link = data.link;
@@ -9,8 +9,9 @@ class Card {
 
     this._isOwn = false;
     this._selector = selector;
+
     this._handleCardClick = handleCardClick;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handlePopupOpen = handlePopupOpen;
     this._handleLikeClick = handleLikeClick;
   }
 
@@ -43,7 +44,7 @@ class Card {
     
     if(this._isOwn) {
       this._deleteButton.addEventListener('click', () => {
-        this._handleOpenPopup(() => {
+        this._handlePopupOpen(this._id, () => {
           this._deleteElement(this._deleteButton.closest('li'));
         });
       });

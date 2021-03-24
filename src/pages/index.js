@@ -120,8 +120,16 @@ const popupCardAdd = new PopupWithForm('.popup_mode_add', (inputValues) => {
 
 const popupCardImage = new PopupWithImage('.popup_mode_image');
 
-const popupConfirm = new PopupWithConfirm('.popup_mode_confirm', (id) => {
-  api.deleteCard(id);
+const popupConfirm = new PopupWithConfirm('.popup_mode_confirm', (cardId, deleteCardFunc) => {
+  api.deleteCard(cardId).then(res => {
+    if(res.ok) {
+      deleteCardFunc();
+      console.log('Карточка успешно удалена!');
+    }
+    else console.log(`Ошибка: ${res.status}. Не удалось удалить карточку с сервера.`);
+    
+    popupConfirm.close();
+  });  
 });
 
 const popupAvatarUpdate = new PopupWithForm('.popup_mode_avatar', (inputValues) => {
@@ -149,11 +157,11 @@ function createCard(id, name, link, likes, owner) {
     likes: likes,
     state: 'unchecked',
     owner: owner
-  }, '#card', popupCardImage.open, (deleteMethod) => {
-    popupConfirm.open(id, deleteMethod);
-  }, (id, state) => {
-    if(state === 'checked') api.checkLike(id);
-    else api.uncheckLike(id);
+  }, '#card', popupCardImage.open, (cardId, deleteCardFunc) => {
+    popupConfirm.open(cardId, deleteCardFunc);
+  }, (cardId, state) => {
+    if(state === 'checked') api.checkLike(cardId);
+    else api.uncheckLike(cardId);
   });
   return cardPrototype.createElement();
 }
