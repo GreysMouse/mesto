@@ -21,6 +21,9 @@ class PopupWithConfirm extends Popup{
   setEventListeners() {
     this._submitButton.addEventListener('click', () => {
       this._handleDeleteElement(this._elementId, this._deleteElementFunc);
+
+      this._elementId = undefined;
+      this._deleteElementFunc = undefined;
     });
 
     super.setEventListeners();

@@ -24,32 +24,35 @@ const avatarEditOverlay = document.querySelector('.profile__overlay');
 // -------------------- Cards -------------------- //
 
 const cardsContainer = new Section(
-  (card) => cardsContainer.addItem(createCard(card._id, card.name, card.link, card.likes, card.owner._id), 'toEnd'), '.cards__container');
+  (card) => cardsContainer.addItem(createCard({
+    id: card._id,
+    name: card.name,
+    link: card.link,
+    likes: card.likes,
+    owner: card.owner._id
+  }), 'toEnd'), '.cards__container');
 
 // -------------------- API Section-------------------- //
 
 const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1',
   cohort: 'cohort-21',
-  token: 'e0650d2e-cc1d-4b7b-999a-f7cf471dfca5',
+  token: 'e0650d2e-cc1d-4b7b-999a-f7cf471dfca5'
 });
 
-api.getUserInfo().then(info => {
-  Card._viewer = info._id;
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(data => {
+  const [user, cards] = data;
 
-  userInfo.setUserInfo(info.name, info.about);
-  userInfo.setUserAvatar(info.avatar);
+  Card._viewer = user._id;
 
-  console.log('Данные профиля получены!');
+  userInfo.setUserInfo(user.name, user.about);
+  userInfo.setUserAvatar(user.avatar);
+
+  cardsContainer.renderItems(cards);
+
+  console.log('Данные профиля и карточки получены!');
 }).catch(err => {
-  console.log(`${err}. Не удалось получить данные о профиле с сервера.`);
-});
-
-api.getInitialCards().then(cards => {
-  cardsContainer.renderItems(cards)
-  
-  console.log('Карточки успешно загружены!');
-}).catch(err => {
-  console.log(`${err}. Не удалось загрузить карточки.`);
+  console.log(`${err}. Не удалось получить данные о профиле и карточки с сервера.`);
 });
 
 // -------------------- Forms -------------------- //
@@ -58,65 +61,69 @@ const formEdit = document.querySelector('.popup_mode_edit').querySelector('.popu
 const formAdd = document.querySelector('.popup_mode_add').querySelector('.popup__form');
 const formAvatar = document.querySelector('.popup_mode_avatar').querySelector('.popup__form');
 
-const formEditPrototype = new FormValidator({
+const selectorsList = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_visible'
-}, formEdit);
+};
 
-const formAddPrototype = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-}, formAdd);
-
-const formAvatarPrototype = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-}, formAvatar)
+const formEditValidation = new FormValidator(selectorsList, formEdit);
+const formAddValidation = new FormValidator(selectorsList, formAdd);
+const formAvatarValidation = new FormValidator(selectorsList, formAvatar)
 
 // -------------------- Popups -------------------- //
 
-const popupProfileEdit = new PopupWithForm('.popup_mode_edit', (inputValues) => {
-  renderLoading(true, formEdit, 'Сохранить');
+const popupProfileEdit = new PopupWithForm('.popup_mode_edit', {
+  handleFormSubmit: (inputValues) => {
+    renderLoading(true, formEdit, 'Сохранить');
+  
+    api.updateProfile(inputValues.name, inputValues.description).then(res => {
+      if(res.ok) {
+        userInfo.setUserInfo(inputValues.name, inputValues.description);
+        return console.log('Профиль успешно обновлён!');
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }).catch(err => {
+      console.log(`${err}. Не удалось обновить профиль.`);
+    }).finally(() => {
+      renderLoading(false, formEdit, 'Сохранить');
+      popupProfileEdit.close();
+    });
+  },
 
-  api.updateProfile(inputValues.name, inputValues.description).then(res => {
-    if(res.ok) {
-      userInfo.setUserInfo(inputValues.name, inputValues.description);
-      console.log('Профиль успешно обновлён!');
-    }
-    else console.log(`Ошибка: ${res.status}. Не удалось обновить профиль.`);
-
-    renderLoading(false, formEdit, 'Сохранить');
-    popupProfileEdit.close();
-  });
-}, (inputList) => {
-  const userData = userInfo.getUserInfo();
-
-  inputList.forEach(input => input.value = userData[input.id]);
-  formEditPrototype.resetValidation();
+  handlePopupFields: (inputList) => {
+    const userData = userInfo.getUserInfo();
+  
+    inputList.forEach(input => input.value = userData[input.id]);
+    formEditValidation.resetValidation();
+  }
 });
 
-const popupCardAdd = new PopupWithForm('.popup_mode_add', (inputValues) => {
-  renderLoading(true, formAdd, 'Создать');
-  
-  api.addCard(inputValues.title, inputValues.link).then(params => {
-    cardsContainer.addItem(createCard(params._id, inputValues.title, inputValues.link, [], Card._viewer), 'toBegin');
-    console.log('Карточка успешно добавлена!');
-  }).catch(err => {
-    console.log(`${err}. Не удалось разместить карточку.`)
-  }).finally(() => {
-    renderLoading(false, formAdd, 'Создать');
-    popupCardAdd.close();
-  });
-}, () => formAddPrototype.resetValidation());
+const popupCardAdd = new PopupWithForm('.popup_mode_add', {
+  handleFormSubmit: (inputValues) => {
+    renderLoading(true, formAdd, 'Создать');
+    
+    api.addCard(inputValues.title, inputValues.link).then(params => {
+      cardsContainer.addItem(createCard({
+        id: params._id,
+        name: inputValues.title,
+        link: inputValues.link,
+        likes: [],
+        owner: Card._viewer
+      }), 'toBegin');
+      console.log('Карточка успешно добавлена!');
+    }).catch(err => {
+      console.log(`${err}. Не удалось разместить карточку.`)
+    }).finally(() => {
+      renderLoading(false, formAdd, 'Создать');
+      popupCardAdd.close();
+    });
+  },
+
+  handlePopupFields: () => formAddValidation.resetValidation()
+});
 
 const popupCardImage = new PopupWithImage('.popup_mode_image');
 
@@ -124,44 +131,57 @@ const popupConfirm = new PopupWithConfirm('.popup_mode_confirm', (cardId, delete
   api.deleteCard(cardId).then(res => {
     if(res.ok) {
       deleteCardFunc();
-      console.log('Карточка успешно удалена!');
+      return console.log('Карточка успешно удалена!');
     }
-    else console.log(`Ошибка: ${res.status}. Не удалось удалить карточку с сервера.`);
-    
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }).catch(err => {
+    console.log(`${err}. Не удалось удалить карточку с сервера.`);
+  }).finally(() => {
     popupConfirm.close();
   });  
 });
 
-const popupAvatarUpdate = new PopupWithForm('.popup_mode_avatar', (inputValues) => {
-  renderLoading(true, formAvatar, 'Сохранить');
+const popupAvatarUpdate = new PopupWithForm('.popup_mode_avatar', {
+  handleFormSubmit: (inputValues) => {
+    renderLoading(true, formAvatar, 'Сохранить');
+    
+    api.updateAvatar(inputValues.avatar).then(res => {
+      if(res.ok) {
+        userInfo.setUserAvatar(inputValues.avatar);
+        return console.log('Аватар успешно обновлён!');
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }).catch(err => {
+      console.log(`${err}. Не удалось обновить аватар.`);
+    }).finally(() => {
+      renderLoading(false, formAvatar, 'Сохранить');
+      popupAvatarUpdate.close();
+    });  
+  },  
   
-  api.updateAvatar(inputValues.avatar).then(res => {
-    if(res.ok) {
-      userInfo.setUserAvatar(inputValues.avatar);
-      console.log('Аватар успешно обновлён!');
-    }
-    else console.log(`Ошибка: ${res.status}. Не удалось обновить аватар.`);
-
-    renderLoading(false, formAvatar, 'Сохранить');
-    popupAvatarUpdate.close();
-  });  
-}, () => formAvatarPrototype.resetValidation());
+  handlePopupFields: () => formAvatarValidation.resetValidation()
+});
 
 // -------------------- Functions -------------------- //
 
-function createCard(id, name, link, likes, owner) {
+function createCard({id, name, link, likes, owner}) {
   const cardPrototype = new Card({
     id: id,
     name: name,
     link: link,
     likes: likes,
-    state: 'unchecked',
     owner: owner
-  }, '#card', popupCardImage.open, (cardId, deleteCardFunc) => {
-    popupConfirm.open(cardId, deleteCardFunc);
-  }, (cardId, state) => {
-    if(state === 'checked') api.checkLike(cardId);
-    else api.uncheckLike(cardId);
+  }, '#card', {
+    handleCardClick: popupCardImage.open,
+
+    handlePopupOpen: (cardId, deleteCardFunc) => {
+      popupConfirm.open(cardId, deleteCardFunc);
+    },
+
+    handleLikeClick: (cardId, likeState) => {
+      if(likeState) return api.uncheckLike(cardId);
+      else return api.checkLike(cardId);
+    }
   });
   return cardPrototype.createElement();
 }
@@ -190,13 +210,8 @@ popupCardImage.setEventListeners();
 popupConfirm.setEventListeners();
 popupAvatarUpdate.setEventListeners();
 
-// -------------------- Enable API -------------------- //
-
-api.getUserInfo();
-api.getInitialCards();
-
 // -------------------- Enable forms validation -------------------- //
 
-formEditPrototype.enableValidation();
-formAddPrototype.enableValidation();
-formAvatarPrototype.enableValidation();
+formEditValidation.enableValidation();
+formAddValidation.enableValidation();
+formAvatarValidation.enableValidation();
