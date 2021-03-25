@@ -31,7 +31,7 @@ class Api {
         name: name,
         about: description
       })
-    });
+    }).then(this._checkResponse);
   }
 
   updateAvatar(avatar) {
@@ -44,7 +44,7 @@ class Api {
       body: JSON.stringify({
         avatar: avatar
       })
-    });
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
@@ -78,7 +78,7 @@ class Api {
         authorization: this._token,
         'content-type': 'application/json'
       }
-    });
+    }).then(this._checkResponse);
   }
 
   checkLike(cardId) {

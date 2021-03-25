@@ -79,12 +79,9 @@ const popupProfileEdit = new PopupWithForm('.popup_mode_edit', {
   handleFormSubmit: (inputValues) => {
     renderLoading(true, formEdit, 'Сохранить');
   
-    api.updateProfile(inputValues.name, inputValues.description).then(res => {
-      if(res.ok) {
-        userInfo.setUserInfo(inputValues.name, inputValues.description);
-        return console.log('Профиль успешно обновлён!');
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    api.updateProfile(inputValues.name, inputValues.description).then(user => {
+      userInfo.setUserInfo(inputValues.name, inputValues.description);
+      console.log('Профиль успешно обновлён!');
     }).catch(err => {
       console.log(`${err}. Не удалось обновить профиль.`);
     }).finally(() => {
@@ -128,12 +125,9 @@ const popupCardAdd = new PopupWithForm('.popup_mode_add', {
 const popupCardImage = new PopupWithImage('.popup_mode_image');
 
 const popupConfirm = new PopupWithConfirm('.popup_mode_confirm', (cardId, deleteCardFunc) => {
-  api.deleteCard(cardId).then(res => {
-    if(res.ok) {
+  api.deleteCard(cardId).then(message => {
       deleteCardFunc();
-      return console.log('Карточка успешно удалена!');
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+      console.log('Карточка успешно удалена!');
   }).catch(err => {
     console.log(`${err}. Не удалось удалить карточку с сервера.`);
   }).finally(() => {
@@ -145,12 +139,9 @@ const popupAvatarUpdate = new PopupWithForm('.popup_mode_avatar', {
   handleFormSubmit: (inputValues) => {
     renderLoading(true, formAvatar, 'Сохранить');
     
-    api.updateAvatar(inputValues.avatar).then(res => {
-      if(res.ok) {
-        userInfo.setUserAvatar(inputValues.avatar);
-        return console.log('Аватар успешно обновлён!');
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    api.updateAvatar(inputValues.avatar).then(user => {
+      userInfo.setUserAvatar(inputValues.avatar);
+      console.log('Аватар успешно обновлён!');
     }).catch(err => {
       console.log(`${err}. Не удалось обновить аватар.`);
     }).finally(() => {
